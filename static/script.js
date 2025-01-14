@@ -27,7 +27,18 @@ function startRecording() {
                     body: formData
                 })
                 .then(response => response.json())
-                .then(data => console.log(data));
+                .then(data => {
+                    console.log(data);
+                    const indicator = document.getElementById("indicator");
+                    indicator.classList.remove("green", "orange", "red");
+                    if (data.status === "extreme") {
+                        indicator.classList.add("red");
+                    } else if (data.status === "medium") {
+                        indicator.classList.add("orange");
+                    } else {
+                        indicator.classList.add("green");
+                    }
+                });
 
                 audioChunks = [];
             });
