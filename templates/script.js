@@ -2,8 +2,10 @@ let mediaRecorder;
 let audioChunks = [];
 
 function startRecording() {
+    console.log("Start button clicked");
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
+            console.log("Audio stream captured");
             mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.start();
 
@@ -29,10 +31,14 @@ function startRecording() {
             document.getElementById("status").innerText = "Status: Monitoring";
             document.getElementById("startButton").disabled = true;
             document.getElementById("stopButton").disabled = false;
+        })
+        .catch(error => {
+            console.error("Error capturing audio stream:", error);
         });
 }
 
 function stopRecording() {
+    console.log("Stop button clicked");
     mediaRecorder.stop();
     document.getElementById("status").innerText = "Status: Not Monitoring";
     document.getElementById("startButton").disabled = false;
