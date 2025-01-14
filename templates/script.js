@@ -1,6 +1,8 @@
 let mediaRecorder;
 let audioChunks = [];
 
+console.log("Script executed");
+
 function startRecording() {
     console.log("Start button clicked");
     navigator.mediaDevices.getUserMedia({ audio: true })
@@ -10,10 +12,12 @@ function startRecording() {
             mediaRecorder.start();
 
             mediaRecorder.addEventListener("dataavailable", event => {
+                console.log("Data available");
                 audioChunks.push(event.data);
             });
 
             mediaRecorder.addEventListener("stop", () => {
+                console.log("Recording stopped");
                 const audioBlob = new Blob(audioChunks);
                 const formData = new FormData();
                 formData.append('audio_data', audioBlob);
