@@ -23,7 +23,13 @@ def upload_audio():
     try:
         audio_data = request.files['audio_data']
         print("Audio data received")
-        audio = AudioSegment.from_file(io.BytesIO(audio_data.read()), format="wav")
+        
+        # Read the audio data
+        audio_bytes = io.BytesIO(audio_data.read())
+        print("Audio bytes read")
+        
+        # Process the audio data
+        audio = AudioSegment.from_file(audio_bytes, format="wav")
         print("Audio data processed")
         
         # Detect loud noise
