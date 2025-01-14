@@ -32,14 +32,33 @@ def beep():
     sd.play(beep_signal, samplerate=sample_rate)
     sd.wait()
 
-# Open the stream
-try:
+@app.route('/start', methods=['POST'])
+def start_recording():
+    global stream
     stream = audio.open(format=FORMAT, channels=CHANNELS,
                         rate=RATE, input=True,
                         frames_per_buffer=CHUNK)
-    print("Recording...")
-except Exception as e:
-    print(f"Error initializing audio stream: {e}")
+    print("Recording started...")
+    return "Recording started"
 
+@app.route('/stop', methods=['POST'])
+def stop_recording():
+    global stream
+    stream.stop_stream()
+    stream.close()
+    print("Recording stopped...")
+    return "Recording stopped"
+
+# Open the stream
+stream = audio.open(format=FORMAT, channels=CHANNELS,
+                    rate=RATE, input=True,
+                    frames_per_buffer=CHUNK)
+
+print("Recording...")
+
+# Ensure the app runs only when executed directly
 if __name__ == "__main__":
     app.run()
+
+# Export the app for Vercel
+app = app

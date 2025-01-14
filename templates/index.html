@@ -10,10 +10,22 @@
     <div class="container">
         <h1>Noise Detection App</h1>
         <p>Monitor your environment for loud noises.</p>
-        <button id="startButton">Start Monitoring</button>
-        <button id="stopButton" disabled>Stop Monitoring</button>
+        <button id="startButton" onclick="startRecording()">Start Monitoring</button>
+        <button id="stopButton" onclick="stopRecording()" disabled>Stop Monitoring</button>
         <div id="status">Status: Not Monitoring</div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        function startRecording() {
+            fetch('/start', { method: 'POST' })
+                .then(response => response.text())
+                .then(data => console.log(data));
+        }
+
+        function stopRecording() {
+            fetch('/stop', { method: 'POST' })
+                .then(response => response.text())
+                .then(data => console.log(data));
+        }
+    </script>
 </body>
 </html>
