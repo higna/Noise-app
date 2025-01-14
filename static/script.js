@@ -30,13 +30,18 @@ function startRecording() {
                 .then(data => {
                     console.log(data);
                     const indicator = document.getElementById("indicator");
+                    const startButton = document.getElementById("startButton");
                     indicator.classList.remove("green", "orange", "red");
+                    startButton.classList.remove("green", "orange", "red");
                     if (data.status === "extreme") {
                         indicator.classList.add("red");
+                        startButton.classList.add("red");
                     } else if (data.status === "medium") {
                         indicator.classList.add("orange");
+                        startButton.classList.add("orange");
                     } else {
                         indicator.classList.add("green");
+                        startButton.classList.add("green");
                     }
                 });
 

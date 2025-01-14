@@ -23,7 +23,6 @@ h1 {
     display: inline-block;
     padding: 10px 20px;
     margin: 10px 0;
-    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
@@ -33,7 +32,19 @@ h1 {
 }
 
 .button:hover {
-    background-color: #0056b3;
+    opacity: 0.8;
+}
+
+.green {
+    background-color: green;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.red {
+    background-color: red;
 }
 
 .audio-level {
@@ -47,16 +58,4 @@ h1 {
     height: 50px;
     border-radius: 50%;
     margin: 20px auto;
-}
-
-.green {
-    background-color: green;
-}
-
-.orange {
-    background-color: orange;
-}
-
-.red {
-    background-color: red;
 }
