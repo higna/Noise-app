@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 from pydub import AudioSegment
-import numpy as np
 import io
 
 app = Flask(__name__)
@@ -21,20 +20,27 @@ def stop_recording():
 
 @app.route('/upload', methods=['POST'])
 def upload_audio():
-    audio_data = request.files['audio_data']
-    audio = AudioSegment.from_file(io.BytesIO(audio_data.read()), format="wav")
-    
-    # Detect loud noise
-    extreme_threshold = -10  # in dBFS
-    medium_threshold = -20  # in dBFS
-    if audio.dBFS > extreme_threshold:
-        print("Extreme noise detected")
-        return jsonify({"status": "extreme"})
-    elif audio.dBFS > medium_threshold:
-        print("Medium noise detected")
-        return jsonify({"status": "medium"})
-    else:
-        return jsonify({"status": "good"})
+    try:
+        audio_data = request.files['audio_data']
+        print("Audio data received")
+        audio = AudioSegment.from_file(io.BytesIO(audio_data.read()), format="wav")
+        print("Audio data processed")
+        
+        # Detect loud noise
+        extreme_threshold = -10  # in dBFS
+        medium_threshold = -20  # in dBFS
+        if audio.dBFS > extreme_threshold:
+            print("Extreme noise detected")
+            return jsonify({"status": "extreme"})
+        elif audio.dBFS > medium_threshold:
+            print("Medium noise detected")
+            return jsonify({"status": "medium"})
+        else:
+            print("Good noise level")
+            return jsonify({"status": "good"})
+    except Exception as e:
+        print(f"Error processing audio data: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
 
 # Ensure the app runs only when executed directly
 if __name__ == "__main__":
