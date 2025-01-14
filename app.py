@@ -1,4 +1,3 @@
-# FILE: /Noise-app/Noise-app/app.py
 import pyaudio
 import numpy as np
 import sounddevice as sd
@@ -35,23 +34,6 @@ stream = audio.open(format=FORMAT, channels=CHANNELS,
                     frames_per_buffer=CHUNK)
 
 print("Recording...")
-def calculate_decibels(data):
-    audio_data = np.frombuffer(data, dtype=np.int16)
-    rms = np.sqrt(np.mean(np.square(audio_data)))
-    decibels = 20 * np.log10(rms) if rms > 0 else -np.inf
-    return decibels
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/audio')
-def audio_stream():
-    data = stream.read(CHUNK)
-    decibels = calculate_decibels(data)
-    if decibels > THRESHOLD:
-        beep()
-    return jsonify({'decibels': decibels})
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8000)
