@@ -33,11 +33,13 @@ def beep():
     sd.wait()
 
 # Open the stream
-stream = audio.open(format=FORMAT, channels=CHANNELS,
-                    rate=RATE, input=True,
-                    frames_per_buffer=CHUNK)
-
-print("Recording...")
+try:
+    stream = audio.open(format=FORMAT, channels=CHANNELS,
+                        rate=RATE, input=True,
+                        frames_per_buffer=CHUNK)
+    print("Recording...")
+except Exception as e:
+    print(f"Error initializing audio stream: {e}")
 
 if __name__ == "__main__":
     app.run()
