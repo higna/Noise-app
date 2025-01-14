@@ -49,13 +49,6 @@ def stop_recording():
     print("Recording stopped...")
     return "Recording stopped"
 
-# Open the stream
-stream = audio.open(format=FORMAT, channels=CHANNELS,
-                    rate=RATE, input=True,
-                    frames_per_buffer=CHUNK)
-
-print("Recording...")
-
 # Ensure the app runs only when executed directly
 if __name__ == "__main__":
     app.run()
