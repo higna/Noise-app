@@ -14,18 +14,6 @@
         <button id="stopButton" onclick="stopRecording()" disabled>Stop Monitoring</button>
         <div id="status">Status: Not Monitoring</div>
     </div>
-    <script>
-        function startRecording() {
-            fetch('/start', { method: 'POST' })
-                .then(response => response.text())
-                .then(data => console.log(data));
-        }
-
-        function stopRecording() {
-            fetch('/stop', { method: 'POST' })
-                .then(response => response.text())
-                .then(data => console.log(data));
-        }
-    </script>
+    <script src="templates/script.js"></script>
 </body>
 </html>
