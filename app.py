@@ -53,9 +53,7 @@ def upload_audio():
         print(f"Error processing audio data: {e}")
         return jsonify({"status": "error", "message": str(e)}), 500
 
-# Ensure the app runs only when executed directly
 if __name__ == "__main__":
     app.run(debug=True)
 
-# Export the app for Vercel
 app = app
